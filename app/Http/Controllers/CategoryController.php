@@ -12,7 +12,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $categories = Category::paginate(20);
+            return view('dashboard.category.index',compact('categories'));
+        } catch (\Throwable $th) {
+            return $th -> getMessage();
+        }
     }
 
     /**
