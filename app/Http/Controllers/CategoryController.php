@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::paginate(20);
+            $categories = Category::where('status', '!=', 'deleted')->paginate(20);
             return view('dashboard.category.index',compact('categories'));
         } catch (\Throwable $th) {
             return $th -> getMessage();
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.category.create');
     }
 
     /**
@@ -33,7 +33,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'name_uz' => $request->name_uz, 
+            'name_ru' => $request->name_ru
+        ]);
+        return redirect(route('category.index'))->with('message','success');
     }
 
     /**
@@ -65,6 +69,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->update([
+            'status'=>'deleted'
+        ]);
+        return redirect()->back();
     }
 }

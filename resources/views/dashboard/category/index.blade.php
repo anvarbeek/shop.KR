@@ -3,7 +3,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">All Category</h3>
+                <a href="{{ route('category.create') }}" class="btn btn-success float-right">Add new</a>
+                <h3 class="card-title mt-2 ">All Category</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -25,7 +26,18 @@
                                 <td>{{ $category->name_ru }}</td>
                                 <td>{{ $category->status }}</td>
                                 <td>
-                                    dsfdfs
+                                    <div class="btn-group float-right">
+                                        <a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary mr-4">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                        <form action="{{ route('category.destroy',$category->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button onclick="return confirm('O`chirishni tasdiqlaysizmi !!!')" type="submit" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

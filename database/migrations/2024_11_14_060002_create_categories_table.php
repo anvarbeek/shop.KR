@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_uz');
             $table->string('name_ru');
-            $table->string('status');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }
